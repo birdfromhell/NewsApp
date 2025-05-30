@@ -1,0 +1,73 @@
+<div class="sidebar-area" id="sidebar-area">
+  <div class="logo position-relative">
+    <a href="/dashboard" class="d-block text-decoration-none position-relative">
+      <img src="/static/images/NewsByte-dark.png" alt="logo-icon" />
+    </a>
+    <button
+      class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
+      id="sidebar-burger-menu"
+    >
+      <i data-feather="x"></i>
+    </button>
+  </div>
+
+  <aside
+    id="layout-menu"
+    class="layout-menu menu-vertical menu active"
+    data-simplebar
+  >
+    <ul class="menu-inner">
+      <li class="menu-title small text-uppercase">
+        <span class="menu-title-text">MAIN MENU</span>
+      </li>
+
+      {% for menu_item in sidebar_menu %}
+      <li
+        class="menu-item {% if menu_item.submenu %}{% if menu_item.is_open %}open{% endif %}{% endif %} {% if menu_item.is_active %}active{% endif %}"
+      >
+        {% if menu_item.submenu %}
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <span class="material-symbols-outlined menu-icon"
+            >{{ menu_item.icon }}</span
+          >
+          <span class="title">{{ menu_item.title }}</span>
+        </a>
+        <ul class="menu-sub">
+          {% for submenu in menu_item.submenu %}
+          <li class="menu-item">
+            <a
+              href="{{ submenu.url }}"
+              class="menu-link {% if submenu.is_active %}active{% endif %}"
+            >
+              {{ submenu.title }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <a
+          href="{{ menu_item.url }}"
+          class="menu-link {% if menu_item.is_active %}active{% endif %}"
+        >
+          <span class="material-symbols-outlined menu-icon"
+            >{{ menu_item.icon }}</span
+          >
+          <span class="title">{{ menu_item.title }}</span>
+        </a>
+        {% endif %}
+      </li>
+      {% endfor %}
+
+      <li class="menu-title small text-uppercase mt-3">
+        <span class="menu-title-text">ACCOUNT</span>
+      </li>
+
+      <li class="menu-item">
+        <a href="/logout" class="menu-link">
+          <span class="material-symbols-outlined menu-icon">logout</span>
+          <span class="title">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+</div>

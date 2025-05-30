@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dracula">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login | News App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body class="bg-base-200">
+    <div class="hero min-h-screen">
+      <div class="hero-content flex-col">
+        {% if error %}
+        <div class="alert alert-error">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{ error }}</span>
+        </div>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+          <fieldset
+            class="fieldset bg-base-200 border-base-300 rounded-box w-96 border p-4"
+          >
+            <legend class="fieldset-legend">Login</legend>
+            <label class="label">Username</label>
+            <input
+              type="text"
+              name="username"
+              class="input input-bordered w-full"
+              required
+            />
+            <label class="label">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="input input-bordered w-full"
+              required
+            />
+            <button type="submit" class="btn btn-neutral mt-4">Login</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

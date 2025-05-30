@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% block title %}My Profile | News App{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Profile</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 text-center mb-4">
+            {% if profile.profile_picture %}
+            <img
+              src="{{ profile.profile_picture.url }}"
+              alt="Profile Picture"
+              class="img-fluid rounded-circle mb-3"
+              style="max-width: 150px; height: auto"
+            />
+            {% else %}
+            <div
+              class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+              style="width: 150px; height: 150px"
+            >
+              <i class="fas fa-user fa-5x"></i>
+            </div>
+            {% endif %}
+            <h5>{{ user.username }}</h5>
+            <p class="badge bg-{{ profile.role|yesno:'primary,secondary' }}">
+              {{ profile.get_role_display }}
+            </p>
+          </div>
+
+          <div class="col-md-8">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{ user.username }}"
+                  readonly
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  value="{{ user.email }}"
+                  readonly
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.bio.id_for_label }}" class="form-label"
+                  >Bio</label
+                >
+                {{ form.bio }}
+              </div>
+
+              <div class="mb-3">
+                <label
+                  for="{{ form.profile_picture.id_for_label }}"
+                  class="form-label"
+                  >Profile Picture</label
+                >
+                {{ form.profile_picture }}
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">
+                  Update Profile
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
